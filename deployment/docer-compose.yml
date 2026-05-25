@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: nginx:alpine
+    container_name: contacts_reisinger_pictures
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+    volumes:
+      - /home/webadmin/websites/contacts.reisinger.pictures/dist:/usr/share/nginx/html:ro
+      - /home/webadmin/websites/contacts.reisinger.pictures/config/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      webnet:
+        ipv4_address: 172.18.0.40
+
+networks:
+  webnet:
+    external: true

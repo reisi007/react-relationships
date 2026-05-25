@@ -1,0 +1,44 @@
+[
+  {
+    "id": "p_reciprocity",
+    "sphere": "PRIVAT",
+    "isActive": true,
+    "label": "Gegenseitigkeit (Reziprozität)",
+    "sliderDescription": "Gibt es ein gesundes Gleichgewicht von Geben und Nehmen in dieser Beziehung?"
+  },
+  {
+    "id": "p_energy",
+    "sphere": "PRIVAT",
+    "isActive": true,
+    "label": "Energie-Bilanz",
+    "sliderDescription": "Fühlen Sie sich nach Treffen energetisiert (+) oder emotional ausgelaugt (-)?"
+  },
+  {
+    "id": "p_trust",
+    "sphere": "PRIVAT",
+    "isActive": true,
+    "label": "Vertrauen & Loyalität",
+    "sliderDescription": "Wie sicher sind Sie, dass diese Person vertrauliche Informationen für sich behält?"
+  },
+  {
+    "id": "b_professionalism",
+    "sphere": "BUSINESS",
+    "isActive": true,
+    "label": "Professionalität & Zuverlässigkeit",
+    "sliderDescription": "Hält die Person Zusagen ein und agiert auf einem hohen professionellen Niveau?"
+  },
+  {
+    "id": "b_synergy",
+    "sphere": "BUSINESS",
+    "isActive": true,
+    "label": "Synergie & Win-Win",
+    "sliderDescription": "Ergeben sich aus der Zusammenarbeit geschäftliche oder fachliche Vorteile für beide Seiten?"
+  },
+  {
+    "id": "b_multiplier",
+    "sphere": "BUSINESS",
+    "isActive": true,
+    "label": "Netzwerk-Multiplikator",
+    "sliderDescription": "Hat diese Person Zugang zu anderen für Sie strategisch wichtigen Kontakten?"
+  }
+]
