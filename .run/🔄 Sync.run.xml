@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Sync" type="BatchConfigurationType" factoryName="Batch">
+  <configuration default="false" name="🔄 Sync" type="BatchConfigurationType" factoryName="Batch">
     <module name="react-relationships" />
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />

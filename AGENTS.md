@@ -8,7 +8,6 @@ This document summarizes key architectural decisions and workflow rules for the 
 
 ## 2. AI Interaction & Workflow Guidelines
 * **Full Code Output**: Always provide the complete, copy-pasteable code for any modified file. Avoid providing partial snippets or diffs.
-* **Automated Change Execution via Script**: Every codebase modification or file generation provided by the AI MUST be accompanied by a root-level executable Node.js script named `import-gemini.mjs`. This script must programmatically create or overwrite all affected directories and files using `fs/promises`.
 * **Proactive Rule Suggestion**: Suggest new rules whenever identifying recurring patterns or to avoid critical mistakes in the future.
 
 ## 3. Frontend & Client-Side Interactivity
