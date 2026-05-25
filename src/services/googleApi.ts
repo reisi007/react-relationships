@@ -124,7 +124,7 @@ export const googleApi = {
     const dueDate = new Date();
     dueDate.setMonth(dueDate.getMonth() + months);
 
-    const appUrl = `https://network.reisinger.pictures/contacts?id=${encodeURIComponent(contactId)}`;
+    const appUrl = `https://contacts.reisinger.pictures/contacts?id=${encodeURIComponent(contactId)}`;
     
     const taskBody = {
       title: `[Netzwerk-Re-Evaluierung] - ${contactName}`,
@@ -132,7 +132,7 @@ export const googleApi = {
       due: dueDate.toISOString(),
     };
 
-    const response = await fetch('https://tasks.googleapis.com/v1/users/@me/lists/@default/tasks', {
+    const response = await fetch('https://tasks.googleapis.com/tasks/v1/lists/@default/tasks', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,

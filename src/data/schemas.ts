@@ -14,7 +14,7 @@ export const EvaluationHistoryItemSchema = z.object({
   timestamp: z.string().datetime({ message: 'Ungültiges Zeitstempel-Format.' }),
   score: z.number().min(0).max(100),
   tier: z.number().int().min(1).max(4),
-  comment: z.string().min(1, 'Ein Verlaufskommentar ist zwingend erforderlich.'),
+  comment: z.string().optional(),
   taskId: z.string().optional(),
 });
 
@@ -24,10 +24,10 @@ export function createDynamicFormSchema(activeQuestionIds: string[]) {
   const shape: Record<string, z.ZodTypeAny> = {};
 
   activeQuestionIds.forEach((id) => {
-    shape[id] = z.number().int().min(1).max(5, { message: 'Wert muss zwischen 1 und 5 liegen.' });
+    shape[id] = z.coerce.number().int().min(1).max(5, { message: 'Wert muss zwischen 1 und 5 liegen.' });
   });
 
-  shape['comment'] = z.string().min(5, 'Bitte geben Sie einen ausführlichen Kommentar ein (mind. 5 Zeichen).');
+  shape['comment'] = z.string().optional();
   shape['interval'] = z.enum(['3', '6', '12'] as const, {
     error: 'Bitte wählen Sie ein gültiges Erinnerungsintervall.',
   });

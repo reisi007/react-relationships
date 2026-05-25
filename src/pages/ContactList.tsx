@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import EvaluationModal from '../components/EvaluationModal';
-import { googleApi, AppContact, EvaluationHistory } from '../services/googleApi';
-import { googleAuth } from '../services/googleAuth';
+import {AppContact, EvaluationHistory, googleApi} from '../services/googleApi';
+import {googleAuth} from '../services/googleAuth';
 
 export default function ContactList() {
   const [contacts, setContacts] = useState<AppContact[]>([]);
@@ -74,24 +74,25 @@ export default function ContactList() {
       else if (score >= 60) tier = 2;
       else if (score >= 40) tier = 3;
 
+      const contactName = `${selectedContact.firstName} ${selectedContact.lastName}`.trim();
+      const commentForHistory = formData.comment ? String(formData.comment) : '';
+      const commentForTask = formData.comment ? String(formData.comment) : 'Kein Kommentar hinterlegt.';
+
       const newHistoryItem: EvaluationHistory = {
         timestamp: String(formData.timestamp),
         score,
         tier,
         sphere: formData.sphere as 'PRIVAT' | 'BUSINESS',
-        comment: String(formData.comment),
+        comment: commentForHistory,
         taskId: undefined
       };
 
-      const contactName = `${selectedContact.firstName} ${selectedContact.lastName}`.trim();
-      const taskId = await googleApi.createFollowUpTask(
+      newHistoryItem.taskId = await googleApi.createFollowUpTask(
           contactName,
           selectedContact.id,
-          String(formData.comment),
+          commentForTask,
           parseInt(String(formData.interval), 10)
       );
-
-      newHistoryItem.taskId = taskId;
 
       const updatedHistory: EvaluationHistory[] = [newHistoryItem, ...selectedContact.evaluationHistory];
       const newEtag = await googleApi.updateContactHistory(selectedContact.id, selectedContact.etag, updatedHistory);
@@ -201,9 +202,11 @@ export default function ContactList() {
                             }`}>
                               {latestEval.sphere === 'PRIVAT' ? '🤗 Privat' : '💼 Business'} - Stufe {latestEval.tier} ({latestEval.score}%)
                             </span>
-                                  <span className="text-xs text-base-content/60 max-w-xs truncate italic" title={latestEval.comment}>
-                              „{latestEval.comment}“
-                            </span>
+                                  {latestEval.comment && (
+                                      <span className="text-xs text-base-content/60 max-w-xs truncate italic" title={latestEval.comment}>
+                                        „{latestEval.comment}“
+                                      </span>
+                                  )}
                                 </div>
                             ) : (
                                 <span className="badge badge-neutral badge-outline font-semibold py-3 px-3 whitespace-nowrap">Noch unbewertet</span>

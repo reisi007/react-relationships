@@ -22,7 +22,7 @@ export default function EvaluationModal({ isOpen, contactName, sphere, onClose, 
   type FormValues = z.infer<typeof dynamicSchema>;
 
   const defaultValues = activeIds.reduce((acc, id) => {
-    acc[id] = 3;
+    acc[id] = "3";
     return acc;
   }, {} as Record<string, string | number>);
 
@@ -54,7 +54,8 @@ export default function EvaluationModal({ isOpen, contactName, sphere, onClose, 
             Kontakt: <span className="font-semibold text-base-content">{contactName}</span>
           </p>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* FIX: Fehler-Logging direkt in der Formular-Submission ergänzt */}
+          <form onSubmit={handleSubmit(onSubmit, (errs) => console.error("Validation Errors:", errs))} className="space-y-6">
             {activeQuestions.map((question) => (
                 <div key={question.id} className="form-control w-full bg-base-200/40 p-4 rounded-xl border border-base-300/60">
                   <label className="label font-semibold text-sm pb-1">
@@ -63,31 +64,31 @@ export default function EvaluationModal({ isOpen, contactName, sphere, onClose, 
                   <p className="text-xs text-base-content/60 mb-3">
                     {question.sliderDescription}
                   </p>
-                  <input
-                      type="range"
-                      min="1"
-                      max="5"
-                      step="1"
-                      className={`range range-xs ${sphere === 'PRIVAT' ? 'range-primary' : 'range-secondary'}`}
-                      {...register(question.id, { valueAsNumber: true })}
-                  />
-                  <div className="w-full flex justify-between text-xs px-1 font-medium mt-1 text-base-content/50">
-                    <span>1 (Gering)</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5 (Hoch)</span>
+                  
+                  <div className="flex items-center justify-between w-full">
+                    <div className="rating rating-md md:rating-lg">
+                      {[1, 2, 3, 4, 5].map((val) => (
+                        <input
+                          key={val}
+                          type="radio"
+                          value={String(val)} // FIX: Ausdrücklich als String übergeben
+                          className={`mask mask-star-2 ${sphere === 'PRIVAT' ? 'bg-primary' : 'bg-secondary'}`}
+                          {...register(question.id)}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-xs font-medium text-base-content/50">1 = Gering, 5 = Hoch</span>
                   </div>
                 </div>
             ))}
 
             <div className="form-control w-full">
               <label className="label font-semibold text-sm">
-                Verlaufskommentar <span className="text-error">*</span>
+                Verlaufskommentar
               </label>
               <textarea
-                  className={`textarea textarea-bordered h-24 ${errors.comment ? 'textarea-error' : ''}`}
-                  placeholder="Geben Sie hier wichtige Kontextinfos, Notizen oder den aktuellen Stand der Beziehung ein..."
+                  className={`w-full textarea textarea-bordered h-24 ${errors.comment ? 'textarea-error' : ''}`}
+                  placeholder="Geben Sie hier optionale Kontextinfos, Notizen oder den aktuellen Stand der Beziehung ein..."
                   {...register('comment')}
               ></textarea>
               {errors.comment && (
