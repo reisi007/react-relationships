@@ -20,3 +20,14 @@ This document summarizes key architectural decisions and workflow rules for the 
 ## 4. Google API & Integration Standards
 * **Google People API**: Used to synchronize contact cards. Historical evaluation logs must be safely bundled into JSON format and written into the contact's `userDefined` custom fields array.
 * **Google Tasks API**: Used to generate follow-up tasks in the user's account based on chosen intervals (3, 6, 12 months), incorporating contextual notes and actionable web deep links.
+## Gates
+
+Regeln dieser Ebene. Was nur ein Verzeichnis betrifft, gehört in die
+`AGENTS.md` **dieses** Verzeichnisses — sie wird geladen, wenn eine Datei
+daraus gelesen wird.
+
+Ein Plan in `docs/plans/` beginnt mit `**Status:** Plan | In Arbeit | Done |
+Empfehlung, nicht implementiert`.
+
+Die kanonischen Agent-Regeln laufen über `ratchet` (Preset `agent-rules`):
+`ratchet check` vor jedem Commit und in der CI.
